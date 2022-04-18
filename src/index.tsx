@@ -4,6 +4,9 @@ import { render } from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import "@fontsource/nunito/400.css"
+import "@fontsource/nunito/variable.css"
+import "@fontsource/nunito/variable-italic.css"
 
 render(
   <StrictMode>

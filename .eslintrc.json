@@ -20,13 +20,14 @@
     "eslint-plugin-import-helpers"
   ],
   "rules": {
+    "arrow-body-style": ["off", "as-needed"],
     "@typescript-eslint/no-empty-interface": ["error", {
         "allowSingleExtends": true
       }
     ],
     "@typescript-eslint/no-explicit-any": "off",
     "comma-dangle": "off",
-    "import-helpers/order-imports": ["error", {
+    "import-helpers/order-imports": ["off", {
       "alphabetize": {
         "ignoreCase": true,
         "order": "asc"
@@ -51,14 +52,16 @@
       "custom": "ignore"
     }],
     "react/jsx-sort-props": ["error", {
-      "ignoreCase": true
+      "ignoreCase": true,
+      "noSortAlphabetically": true
     }],
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "sort-imports": ["error", {
       "ignoreCase": true,
       "ignoreDeclarationSort": true
-    }]
+    }],
+    "import/no-cycle": ["off", { "maxDepth": 2 }]
   },
   "settings": {
     "react": {
