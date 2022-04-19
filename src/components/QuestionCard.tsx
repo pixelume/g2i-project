@@ -1,10 +1,4 @@
-import {
-  Button,
-  ButtonGroup,
-  Grid,
-  Paper,
-  Typography
-} from '@mui/material';
+import { Button, ButtonGroup, Grid, Paper, Typography } from '@mui/material';
 import he from 'he';
 import sx from 'mui-sx';
 import { useEffect, useState } from 'react';
@@ -15,25 +9,32 @@ import GenericError from './GenericError';
 
 interface QuestionBlockProps {
   question: string;
-  animate: boolean
-  setAnimate: (arg: boolean) => void
+  animate: boolean;
+  setAnimate: (arg: boolean) => void;
 }
 
-const QuestionBlock: React.FC<QuestionBlockProps> = ({ question, setAnimate, animate }) => {
-
+const QuestionBlock: React.FC<QuestionBlockProps> = ({
+  question,
+  setAnimate,
+  animate,
+}) => {
   useEffect(() => {
     if (animate) {
       setTimeout(() => {
-        setAnimate(false)
+        setAnimate(false);
       }, 1850);
     }
-  }, [animate, setAnimate])
+  }, [animate, setAnimate]);
 
   return (
     <Paper
       sx={sx(
-        { p: 3, backgroundColor: 'secondary.light', border: '1px solid #ff6090' },
-        {condition: animate, sx: animateEntranceSx(0)}
+        {
+          p: 3,
+          backgroundColor: 'secondary.light',
+          border: '1px solid #ff6090',
+        },
+        { condition: animate, sx: animateEntranceSx(0) }
       )}
     >
       <Typography
@@ -53,11 +54,11 @@ const QuestionCard: React.FC = () => {
   const questions = data?.data?.results;
   const [idxOfCurrQuestion, setIdxOfCurrQuestion] = useState(0);
   const currentQuestion = questions ? questions[idxOfCurrQuestion] : undefined;
-  const [animate, setAnimate] = useState(true)
+  const [animate, setAnimate] = useState(true);
 
   const handleAnswer = (answer: 'True' | 'False') => {
     setAnswers((answers) => [...answers].concat([answer]));
-    setAnimate(true)
+    setAnimate(true);
     if (idxOfCurrQuestion + 1 < NR_OF_QUESTIONS) {
       setIdxOfCurrQuestion((currIdx) => currIdx + 1);
     } else {
@@ -68,7 +69,7 @@ const QuestionCard: React.FC = () => {
   return (
     <Paper sx={sx(cardSx as any, animateEntranceSx(0))}>
       {fetchError ? (
-        <GenericError error={data.error}/>
+        <GenericError error={data.error} />
       ) : (
         <>
           {currentQuestion && (
@@ -79,7 +80,9 @@ const QuestionCard: React.FC = () => {
               sx={{ height: '100%' }}
             >
               <Grid item>
-                <Typography variant="h5">{currentQuestion.category}</Typography>
+                <Typography data-testid="category" variant="h5">
+                  {currentQuestion.category}
+                </Typography>
               </Grid>
               <Grid item>
                 <Typography
@@ -88,7 +91,11 @@ const QuestionCard: React.FC = () => {
                 >
                   {`Question ${idxOfCurrQuestion + 1}`}
                 </Typography>
-                <QuestionBlock animate={animate} setAnimate={setAnimate} question={he.decode(currentQuestion.question)} />
+                <QuestionBlock
+                  animate={animate}
+                  setAnimate={setAnimate}
+                  question={he.decode(currentQuestion.question)}
+                />
                 <Typography
                   sx={{ mt: 5, fontStyle: 'italic', fontWeight: '600' }}
                   variant="body1"
